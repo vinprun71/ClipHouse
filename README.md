@@ -14,6 +14,14 @@ ClipHouse is designed as a small private/family tool: no cloud account, no exter
 - SQLite persistence via Prisma
 - Docker and bare-metal install options
 
+## Screenshots
+
+![ClipHouse home screen](screenshots/cliphouse-home-demo.png)
+
+![ClipHouse library screen](screenshots/cliphouse-library-demo.png)
+
+![ClipHouse playlists screen](screenshots/cliphouse-playlists-demo.png)
+
 ## Quick start with Docker Compose
 
 Requirements: Docker and Docker Compose.

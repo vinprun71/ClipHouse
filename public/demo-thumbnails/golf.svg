@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#84cc16"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
+    <filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1280" height="720" rx="48" fill="#080812"/>
+  <rect x="44" y="44" width="1192" height="632" rx="42" fill="url(#g)" opacity=".96"/>
+  <circle cx="1080" cy="128" r="170" fill="#fff" opacity=".14"/>
+  <circle cx="170" cy="610" r="230" fill="#000" opacity=".12"/>
+  <rect x="96" y="92" width="280" height="70" rx="35" fill="#080812" opacity=".36"/>
+  <text x="130" y="138" font-family="Inter,Arial,sans-serif" font-size="34" font-weight="800" fill="#fff" opacity=".92">Facebook</text>
+  <g filter="url(#s)">
+    <circle cx="640" cy="330" r="96" fill="#fff" opacity=".92"/>
+    <path d="M615 278v104l90-52z" fill="#111827"/>
+  </g>
+  <text x="640" y="565" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="76" font-weight="900" fill="#fff">Golf Drill</text>
+</svg>
