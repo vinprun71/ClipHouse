@@ -1,0 +1,12 @@
+services:
+  cliphouse:
+    build: .
+    container_name: cliphouse
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: file:/app/data/cliphouse.db
+    volumes:
+      - ./data:/app/data
+      - ./cache:/app/.cache

@@ -1,0 +1,16 @@
+.git
+node_modules
+.next
+.cache
+data
+*.db
+*.db-*
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.DS_Store
+coverage

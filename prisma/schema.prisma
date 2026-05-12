@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Video {
+  id        String   @id @default(cuid())
+  url       String
+  title     String
+  platform  String
+  creator   String?
+  thumbnail String?
+  category  String
+  tags      String   @default("[]")
+  notes     String?
+  favorite  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  playlists VideoToPlaylist[]
+
+  @@index([category])
+  @@index([platform])
+  @@index([favorite])
+  @@index([createdAt])
+}
+
+model Playlist {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  videos VideoToPlaylist[]
+}
+
+model VideoToPlaylist {
+  video     Video   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  videoId   String
+  playlist  Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  playlistId String
+  addedAt   DateTime @default(now())
+
+  @@id([videoId, playlistId])
+  @@index([playlistId])
+  @@index([videoId])
+}
