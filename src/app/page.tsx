@@ -313,9 +313,6 @@ function TopNav({ savedCount }: { savedCount: number }) {
         <Link className="rounded-full border border-pink-300/25 bg-pink-300/10 px-4 py-2 text-center text-sm text-pink-100 transition hover:bg-pink-300/20" href="/playlists">
           Playlists
         </Link>
-        <p className="hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-zinc-300 md:block">
-          Local-first prototype · v0
-        </p>
       </div>
     </nav>
   );
