@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cacheThumbnail } from "@/lib/thumbnail-cache";
 import { detectPlatform, suggestCategory, tagsFromText } from "@/lib/videos";
+
+export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   const { url } = (await request.json().catch(() => ({}))) as { url?: string };
@@ -47,6 +50,7 @@ export async function POST(request: NextRequest) {
 
   const instagramShortcode = platform === "Instagram" ? parseInstagramShortcode(url) : null;
   if (instagramShortcode) image = `/api/instagram-thumbnail/${instagramShortcode}`;
+  else image = await cacheThumbnail(image);
 
   const combined = `${title} ${description} ${url}`;
 

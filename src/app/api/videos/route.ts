@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { cacheThumbnail } from "@/lib/thumbnail-cache";
 import { CATEGORIES, Category, detectPlatform } from "@/lib/videos";
 
 export async function GET() {
@@ -50,13 +51,15 @@ export async function POST(request: NextRequest) {
     targetPlaylistName = playlist.name;
   }
 
+  const thumbnail = await cacheThumbnail(body.thumbnail);
+
   const video = await prisma.video.create({
     data: {
       url,
       title,
       platform,
       creator: body.creator?.trim() || null,
-      thumbnail: body.thumbnail?.trim() || null,
+      thumbnail: thumbnail || null,
       category,
       tags: JSON.stringify(tags),
       notes: body.notes?.trim() || null,

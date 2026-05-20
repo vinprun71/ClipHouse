@@ -8,6 +8,7 @@ ClipHouse is designed as a small private/family tool: no cloud account, no exter
 ## Features
 
 - Save public short-video URLs with title, creator, category, tags, notes, and thumbnail
+- Cache remote thumbnails locally to avoid expiring social/CDN image URLs
 - Best-effort metadata autofill when platforms allow anonymous fetching
 - Search and filter your saved library
 - Create playlists for people, projects, trips, hobbies, or rabbit holes
@@ -98,7 +99,9 @@ For your own deployment, keep these files private and backed up:
 
 ## Notes on metadata fetching
 
-Social platforms frequently block anonymous metadata requests or change page structure. ClipHouse treats metadata as best-effort: if autofill fails, you can still save the URL manually.
+Social platforms frequently block anonymous metadata requests, expire CDN image signatures, or change page structure. ClipHouse treats metadata as best-effort: if autofill fails, you can still save the URL manually.
+
+When ClipHouse can fetch a remote thumbnail, it stores a local copy under `./cache` and serves it from `/api/thumbnails/...` so saved cards are less likely to lose images later.
 
 Instagram thumbnail extraction uses `ffmpeg` and a public proxy endpoint as a fallback. If that stops working, saved links still work; thumbnails may simply be blank.
 
