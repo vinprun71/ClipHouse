@@ -3,6 +3,7 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const THUMBNAIL_CACHE_DIR = path.join(process.cwd(), ".cache", "thumbnails");
+const LEGACY_PUBLIC_THUMBNAIL_DIR = path.join(process.cwd(), "public", "cached-thumbnails");
 const THUMBNAIL_ROUTE = "/api/thumbnails";
 const MAX_THUMBNAIL_BYTES = 5 * 1024 * 1024;
 
@@ -68,13 +69,16 @@ export async function cacheThumbnail(thumbnailUrl?: string | null) {
 export async function readCachedThumbnail(filename: string) {
   if (!isSafeThumbnailFilename(filename)) return null;
 
-  const filePath = path.join(THUMBNAIL_CACHE_DIR, filename);
-  try {
-    const image = await readFile(filePath);
-    return { image, contentType: contentTypeForFilename(filename) };
-  } catch {
-    return null;
+  for (const directory of [THUMBNAIL_CACHE_DIR, LEGACY_PUBLIC_THUMBNAIL_DIR]) {
+    try {
+      const image = await readFile(path.join(directory, filename));
+      return { image, contentType: contentTypeForFilename(filename) };
+    } catch {
+      // Try the next cache location. Public thumbnails are legacy files from older builds.
+    }
   }
+
+  return null;
 }
 
 function isRemoteHttpUrl(value: string) {
