@@ -49,8 +49,7 @@ export async function POST(request: NextRequest) {
   }
 
   const instagramShortcode = platform === "Instagram" ? parseInstagramShortcode(url) : null;
-  if (instagramShortcode) image = `/api/instagram-thumbnail/${instagramShortcode}`;
-  else image = await cacheThumbnail(image);
+  image = image ? await cacheThumbnail(image) : instagramShortcode ? `/api/instagram-thumbnail/${instagramShortcode}` : "";
 
   const combined = `${title} ${description} ${url}`;
 
