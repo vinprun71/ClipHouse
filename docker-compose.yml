@@ -1,12 +1,14 @@
 services:
   cliphouse:
-    build: .
+    image: ghcr.io/vinprun71/cliphouse:latest
     container_name: cliphouse
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: file:/app/data/cliphouse.db
+      CLIPHOUSE_SETUP_TOKEN_FILE: /app/data/setup-token
+      CLIPHOUSE_PUBLIC_URL: ${CLIPHOUSE_PUBLIC_URL:-http://localhost:3000}
     volumes:
       - ./data:/app/data
       - ./cache:/app/.cache

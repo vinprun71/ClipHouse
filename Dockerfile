@@ -28,6 +28,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/src/generated ./src/generated
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/docker-entrypoint.sh ./docker-entrypoint.sh
 RUN mkdir -p /app/data /app/.cache
 EXPOSE 3000
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run start -- --hostname 0.0.0.0 --port ${PORT}"]
+ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]
